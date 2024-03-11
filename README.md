@@ -7,6 +7,7 @@ Project 1 - ENPM 661 - Planning for Autonomous Robotics
 By:  
 Shivam Dhakad
 UID : 120263477
+
 ..........................................................................................
 
 Test case:
@@ -29,7 +30,9 @@ Input4: goal_position_y_coordinate:
 Output
 video file: "dijkstra_explore_path.mp4" will be generated
 
+
 ...............................................................................................
+
 IDE used: vs code
 Compiler: python3
 Operating system: Linux/Windows
