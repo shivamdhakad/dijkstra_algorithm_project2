@@ -327,7 +327,8 @@ if __name__ == '__main__':
 # show the map_canvas
     M = cv2.getRotationMatrix2D((center_x, center_y), 90, 1.0)
     map_canvas = cv2.warpAffine(map_canvas, M, (map_canvas.shape[1], map_canvas.shape[0]))
- 
+
+    #rectangle coordinates
     rectangle1=[[100,0],[175,0],[175,400],[100,400]]
     rect1_clearance=[[95,0],[180,0],[180,405],[95,405]]
 
@@ -348,14 +349,13 @@ if __name__ == '__main__':
     vertices3=np.array(rectangle3,dtype=np.int32)
     vertices4=np.array(rectangle4,dtype=np.int32)
     vertices5=np.array(rectangle5,dtype=np.int32)
-
+    # draw the rectangle on the map_canvas using fillPoly
     cv2.rectangle(map_canvas, (0, 0), (map_canvas.shape[1] - 1, map_canvas.shape[0] - 1), clearance_color, robot_clearance)
     cv2.fillPoly(map_canvas, [np.array(rect1_clearance)], clearance_color)
     cv2.fillPoly(map_canvas, [np.array(rect2_clearance)], clearance_color)
     cv2.fillPoly(map_canvas, [np.array(rect3_clearance)], clearance_color)
     cv2.fillPoly(map_canvas, [np.array(rect4_clearance)], clearance_color)
     cv2.fillPoly(map_canvas, [np.array(rect5_clearance)], clearance_color)
-
 
     cv2.fillPoly(map_canvas, [np.array(vertices1)], (255,0,0))
     cv2.fillPoly(map_canvas, [np.array(vertices2)], (255,0,0))
@@ -365,6 +365,7 @@ if __name__ == '__main__':
    
   
     while(1):
+        # take the start and goal coordinates from the user
         print("path planning using Dijkstra Algorithm")
         x1=input( "Enter start position coordinates(x): ")
         y1=input( "Enter start position coordinates(y): ")
@@ -374,7 +375,7 @@ if __name__ == '__main__':
         y2=input( "Enter goal position coordinates(y): ")
         goal.append(500-int(y2))
         goal.append(int(x2))
-
+        # check of inbound conditions for the start and goal nodes
         if(int(x1) > 1200 or int(y1)>500 or int(x2) > 1200 or int(y2)>500):
             print("enter the coordinates within the map space(1200,500)")
             
