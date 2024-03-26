@@ -8,7 +8,6 @@ import heapq as hq
 import copy
 import time
 
-
 # Action Functions  
 #move-up     
 # def Move_up(node,map_canvas):
@@ -94,13 +93,13 @@ import time
 def Move_up(node,map_canvas):
     #print(node)
     current_node = copy.deepcopy(node)
-    print("current_node",current_node)
+    # print("current_node",current_node)
     # next_node=[current_node[0],current_node[1]-1]
     next_node=[current_node[0]-1,current_node[1]]
-    print("up",next_node)
-    #print(map_canvas[current_node[0]][current_node[1]-1] )
+    # print("up",next_node)
     # check if node is not in obsctacle space
     if(current_node[1] > 0) and (map_canvas[next_node[0]][next_node[1]][0]==0) and  (map_canvas[next_node[0]][next_node[1]][2]==0):
+        print("up")
         return tuple(next_node)
     else:
         return None
@@ -109,9 +108,13 @@ def Move_up(node,map_canvas):
 def Move_down(node,map_canvas):
     current_node = copy.deepcopy(node)
     next_node=[current_node[0]+1,current_node[1]]
-    if(next_node[1] < 500) and (map_canvas[next_node[0]][next_node[1]][0]==0) and  (map_canvas[next_node[0]][next_node[1]][2]==0):
+    print("next_node:",next_node)
+    # if(next_node[1] < 500) and (map_canvas[next_node[0]][next_node[1]][0]==0) and  (map_canvas[next_node[0]][next_node[1]][2]==0):
+    if(next_node[1] < 1200) and (map_canvas[next_node[0]][next_node[1]][0]==0) and  (map_canvas[next_node[0]][next_node[1]][2]==0):
+        print("dn")
         return tuple(next_node)
     else:
+        print("!dn")
         return None
     
 #move-right  
@@ -119,6 +122,7 @@ def Move_right(node,map_canvas):
     current_node = copy.deepcopy(node)
     next_node=[current_node[0],current_node[1]+1]
     if(next_node[0] < 1200) and (map_canvas[next_node[0]][next_node[1]][0]==0) and (map_canvas[next_node[0]][next_node[1]][2]==0):
+        print("rg")
         return tuple(next_node)
     else:
         return None
@@ -128,6 +132,7 @@ def Move_left(node,map_canvas):
     current_node = copy.deepcopy(node)
     next_node=[current_node[0],current_node[1]-1]
     if(next_node[0] > 0) and (map_canvas[next_node[0]][next_node[1]][0]==0) and (map_canvas[next_node[0]][next_node[1]][2]==0):
+        print("lf")
         return tuple(next_node)
     else:
         return None
@@ -138,6 +143,7 @@ def move_left_up(node,map_canvas):
     # next_node=[current_node[0]-1,current_node[1]]
     next_node=[current_node[0]-1,current_node[1]-1]
     if(next_node[1] > 0) and (next_node[0] > 0) and (map_canvas[next_node[0]][next_node[1]][0]==0) and (map_canvas[next_node[0]][next_node[1]][2]==0):
+        print("lf-up")
         return tuple(next_node)
     else:
         return None
@@ -149,6 +155,7 @@ def move_right_up(node,map_canvas):
     next_node=[current_node[0]-1,current_node[1]+1]
 
     if(next_node[1] > 0) and (next_node[0] < 1200) and  (map_canvas[next_node[0]][next_node[1]][0]==0) and (map_canvas[next_node[0]][next_node[1]][2]==0):
+        print("rg-up")
         return tuple(next_node)
     else:
         return None
@@ -158,9 +165,13 @@ def move_right_down(node,map_canvas):
     current_node = copy.deepcopy(node)
     # next_node=[current_node[0]-1,current_node[1]]
     next_node = [current_node[0]+1,current_node[1]+1]
-    if(next_node[1] < 500) and (next_node[0] < 1200) and  (map_canvas[next_node[0]][next_node[1]][0]==0) and (map_canvas[next_node[0]][next_node[1]][2]==0):
+    print("next_node:",next_node)
+    # if(next_node[1] < 500) and (next_node[0] < 1200) and  (map_canvas[next_node[0]][next_node[1]][0]==0) and (map_canvas[next_node[0]][next_node[1]][2]==0):
+    if(next_node[1] > 0) and (next_node[0] < 1200) and  (map_canvas[next_node[0]][next_node[1]][0]==0) and (map_canvas[next_node[0]][next_node[1]][2]==0):
+        print("rg_dn")
         return tuple(next_node)
     else:
+        print("!rg-dn")
         return None
     
 #move-left-down (diagonally down)    
@@ -168,9 +179,13 @@ def move_left_down(node,map_canvas):
     current_node = copy.deepcopy(node)
     # next_node=[current_node[0]-1,current_node[1]]
     next_node = [current_node[0]+1,current_node[1]-1]    
-    if(next_node[1] < 500) and (next_node[0] > 0) and (map_canvas[next_node[0]][next_node[1]][0]==0) and (map_canvas[next_node[0]][next_node[1]][2]==0):
+    print("next_node:",next_node)
+    # if(next_node[1] < 500) and (next_node[0] > 0) and (map_canvas[next_node[0]][next_node[1]][0]==0) and (map_canvas[next_node[0]][next_node[1]][2]==0):
+    if(next_node[1] > 0) and (next_node[0] > 0) and (map_canvas[next_node[0]][next_node[1]][0]==0) and (map_canvas[next_node[0]][next_node[1]][2]==0):
+        print("lf-dn")
         return tuple(next_node)
     else:
+        print("!lf-dn")
         return None
 
 #Dijkstra Algorithm
@@ -183,11 +198,12 @@ def Dijkstra(start_node, goal_node,map_canvas):
     hq.heappush(PQ,[0,start_node,start_node])   #PQ= priority Queue. Elements: cost,parent,present
     while(len(PQ)!=0):
         node=hq.heappop(PQ)
-        print("poped_node:",node)
+        # print("poped_node:",node)
         S[(node[2][0],node[2][1])]=node[1]
         present_cost=node[0]
         if(list(node[2])==goal_node):
             print("path generating...")
+            # calling back tracking function
             Backtrack(S,start_node,goal_node,map_canvas)
             temp=1
             break
@@ -201,16 +217,6 @@ def Dijkstra(start_node, goal_node,map_canvas):
         # next_node5=move_left_down(node[2],map_canvas)
         # next_node6=Move_left(node[2],map_canvas)
         # next_node7=move_left_up(node[2],map_canvas) 
-        #on
-        # next_node=Move_up(node[2],map_canvas)
-        # #print(next_node)                 
-        # next_node1=Move_down(node[2],map_canvas)
-        # next_node2=Move_left(node[2],map_canvas)
-        # next_node3=Move_right(node[2],map_canvas)
-        # next_node4=move_right_down(node[2],map_canvas)
-        # next_node5=move_right_up(node[2],map_canvas)
-        # next_node6=move_left_down(node[2],map_canvas)
-        # next_node7=move_left_up(node[2],map_canvas)
 
         #given action sequence
         next_node=Move_up(node[2],map_canvas)
@@ -367,6 +373,7 @@ def Dijkstra(start_node, goal_node,map_canvas):
 
 #backtracking function, takes parent node from explored nodes and stores the coordinates of the path in a new list
 def Backtrack(S,start_node,goal_node,map_canvas):
+    count =0
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # write the video file in mp4 format
     frame_rate = 500   # frame rate
     out = cv2.VideoWriter('dijkstra_explore_path.mp4',fourcc,frame_rate,(map_canvas.shape[1],map_canvas.shape[0]))
@@ -380,10 +387,12 @@ def Backtrack(S,start_node,goal_node,map_canvas):
     cv2.circle(map_canvas,tuple(start),3,(0,255,0),-1)           #draw green and red circles representing the start & goal
     cv2.circle(map_canvas,tuple(goal),3,(0,0,255),-1)
     for node in explored_nodes:
+        count = count +1
         map_canvas[node[0]][node[1]]=[255,255,255]
-        cv2.imshow("Nodes Exploration",map_canvas)
-        cv2.waitKey(1)
-        out.write(map_canvas)
+        if count % 100 == 0: 
+            cv2.imshow("Nodes Exploration",map_canvas)
+            cv2.waitKey(1)
+            out.write(map_canvas)
     parent=S[tuple(goal_node)]
     while(parent!=start_node):
         navigation.append(parent)
@@ -393,7 +402,7 @@ def Backtrack(S,start_node,goal_node,map_canvas):
     # draw the path on the map_canvas
     while(len(navigation)>0):
         path_node = navigation.pop()
-        map_canvas[path_node[0]][path_node[1]] =[255, 0, 0]
+        map_canvas[path_node[0]][path_node[1]] =[255, 0, 0]    # blue color path_line
         out.write(map_canvas)
     # #####EDITED_PART #####
     # while(len(navigation)>0):
