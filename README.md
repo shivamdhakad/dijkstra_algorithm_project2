@@ -4,7 +4,7 @@ GIthub link: 'https://github.com/shivamdhakad/dijkstra_algorithm_project2'
 Project 1 - ENPM 661 - Planning for Autonomous Robotics
 By:  
 Shivam Dhakad
-UID : 120263477
+
 
 Executable: updated_dijkstra_algorithm.py\
 ..........................................................................................
